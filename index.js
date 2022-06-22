@@ -27,7 +27,7 @@ const db = mysql.createPool({
 //get all events
 app.get('/api/getEvents', (req, res) => {
 
-    sql = "SELECT *, DATE_FORMAT(eventStartDate, '%d-%m-%Y') as eventStartDate, DATE_FORMAT(eventEndDate, '%d-%m-%Y') as eventEndDate FROM heroku_61b7c6ae4a0075c.event"
+    sql = "SELECT *, DATE_FORMAT(eventStartDate, '%d-%m-%Y') as eventStartDate, DATE_FORMAT(eventEndDate, '%d-%m-%Y') as eventEndDate FROM event"
     db.query(
         sql,
         (error, result) => {
@@ -43,7 +43,7 @@ app.get('/api/getEvents', (req, res) => {
 //get all none out dated events
 app.get('/api/getRecentEvents', (req, res) => {
 
-    sql = "SELECT *, DATE_FORMAT(eventStartDate, '%d-%m-%Y') as eventStartDate, DATE_FORMAT(eventEndDate, '%d-%m-%Y') as eventEndDate FROM heroku_61b7c6ae4a0075c.event WHERE CURDATE() <= eventEndDate"
+    sql = "SELECT *, DATE_FORMAT(eventStartDate, '%d-%m-%Y') as eventStartDate, DATE_FORMAT(eventEndDate, '%d-%m-%Y') as eventEndDate FROM event WHERE CURDATE() <= eventEndDate"
     db.query(
         sql,
         (error, result) => {
@@ -59,7 +59,7 @@ app.get('/api/getRecentEvents', (req, res) => {
 //get all out dated events
 app.get('/api/getOutDatedEvents', (req, res) => {
 
-    sql = "SELECT *, DATE_FORMAT(eventStartDate, '%d-%m-%Y') as eventStartDate, DATE_FORMAT(eventEndDate, '%d-%m-%Y') as eventEndDate FROM heroku_61b7c6ae4a0075c.event WHERE NOT (CURDATE() <= eventEndDate)"
+    sql = "SELECT *, DATE_FORMAT(eventStartDate, '%d-%m-%Y') as eventStartDate, DATE_FORMAT(eventEndDate, '%d-%m-%Y') as eventEndDate FROM event WHERE NOT (CURDATE() <= eventEndDate)"
     db.query(
         sql,
         (error, result) => {
@@ -75,7 +75,7 @@ app.get('/api/getOutDatedEvents', (req, res) => {
 //get populer events
 app.get('/api/getPopularEvents', (req, res) => {
 
-    sql = "SELECT *, DATE_FORMAT(eventStartDate, '%d-%m-%Y') as eventStartDate, DATE_FORMAT(eventEndDate, '%d-%m-%Y') as eventEndDate FROM heroku_61b7c6ae4a0075c.event WHERE eventIsPopular = 1"
+    sql = "SELECT *, DATE_FORMAT(eventStartDate, '%d-%m-%Y') as eventStartDate, DATE_FORMAT(eventEndDate, '%d-%m-%Y') as eventEndDate FROM event WHERE eventIsPopular = 1"
     db.query(
         sql,
         (error, result) => {
@@ -94,7 +94,7 @@ app.get('/api/getEventTypeName', (req, res) => {
     //eventTypeID
     const eventTypeID = req.query.eventTypeID
 
-    sql = "SELECT eventTypeName from heroku_61b7c6ae4a0075c.eventtype WHERE eventTypeID = ?"
+    sql = "SELECT eventTypeName from eventtype WHERE eventTypeID = ?"
     db.query(
         sql,
         [eventTypeID],
@@ -115,7 +115,7 @@ app.get('/api/getEventCityName', (req, res) => {
     //eventCityID
     const eventCityID = req.query.eventCityID
 
-    sql = "SELECT eventCityName from heroku_61b7c6ae4a0075c.eventcity WHERE eventCityID = ?"
+    sql = "SELECT eventCityName from eventcity WHERE eventCityID = ?"
     db.query(
         sql,
         [eventCityID],
@@ -136,7 +136,7 @@ app.get('/api/getEventLocationName', (req, res) => {
     //eventLocationID
     const eventLocationID = req.query.eventLocationID
 
-    sql = "SELECT eventLocationName from heroku_61b7c6ae4a0075c.eventLocation WHERE eventLocationID = ?"
+    sql = "SELECT eventLocationName from eventLocation WHERE eventLocationID = ?"
     db.query(
         sql,
         [eventLocationID],
@@ -154,7 +154,7 @@ app.get('/api/getEventLocationName', (req, res) => {
 //get all event type names
 app.get('/api/getEventTypeNames', (req, res) => {
 
-    sql = "SELECT * FROM heroku_61b7c6ae4a0075c.eventtype"
+    sql = "SELECT * FROM eventtype"
     db.query(
         sql,
         (error, result) => {
@@ -172,7 +172,7 @@ app.get('/api/getEventTypeNames', (req, res) => {
 //get all event location names
 app.get('/api/getEventLocationNames', (req, res) => {
 
-    sql = "SELECT * FROM heroku_61b7c6ae4a0075c.eventlocation"
+    sql = "SELECT * FROM eventlocation"
     db.query(
         sql,
         (error, result) => {
@@ -191,7 +191,7 @@ app.get('/api/getEventLocationNames', (req, res) => {
 app.get('/api/getEventByEventId', (req, res) => {
     const eventId = req.query.eventId
 
-    sql = "SELECT *, DATE_FORMAT(eventStartDate, '%d-%m-%Y') as eventStartDate, DATE_FORMAT(eventEndDate, '%d-%m-%Y') as eventEndDate FROM heroku_61b7c6ae4a0075c.event WHERE eventId = ?"
+    sql = "SELECT *, DATE_FORMAT(eventStartDate, '%d-%m-%Y') as eventStartDate, DATE_FORMAT(eventEndDate, '%d-%m-%Y') as eventEndDate FROM event WHERE eventId = ?"
     db.query(
         sql,
         [eventId],
